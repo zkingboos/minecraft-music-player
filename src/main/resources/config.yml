@@ -1,0 +1,5 @@
+# Configuration file
+music:
+  dropbox:
+    client:
+      token: "your access token"

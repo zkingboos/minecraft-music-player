@@ -1,0 +1,7 @@
+name: KMusicPlayer
+author: ykingboos
+version: 1.0.0-SNAPSHOT
+main: com.github.zkingboos.music.MusicPlugin
+commands:
+  music:
+    description: "Portable player to minecraft"

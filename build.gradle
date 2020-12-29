@@ -1,0 +1,31 @@
+plugins {
+    id 'com.github.johnrengelman.shadow' version '2.0.4'
+    id 'java-library'
+    id 'maven'
+}
+
+group 'com.github.zkingboos.music'
+version '1.0.0-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+    jcenter()
+    mavenCentral()
+    maven { url = 'https://oss.sonatype.org/content/repositories/snapshots' }
+    maven { url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
+}
+
+dependencies {
+    compileOnly 'org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT'
+
+    implementation 'com.dropbox.core:dropbox-core-sdk:3.1.5'
+    implementation 'com.github.kokorin.jaffree:jaffree:0.9.7'
+    implementation 'com.sedmelluq:lavaplayer:1.3.60'
+
+    compileOnly 'org.projectlombok:lombok:1.18.16'
+    annotationProcessor 'org.projectlombok:lombok:1.18.16'
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}

@@ -1,9 +1,8 @@
-package com.github.zkingboos.player.bukkit.entity;
+package com.github.zkingboos.player.bukkit.struct;
 
 import com.sapher.youtubedl.mapper.VideoInfo;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.RequiredArgsConstructor;
 import lombok.experimental.Delegate;
 
 import java.io.File;

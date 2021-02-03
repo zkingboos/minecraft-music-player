@@ -13,8 +13,10 @@ public class MusicPlayerPlugin extends JavaPlugin {
     public void onEnable() {
         saveDefaultConfig();
         YoutubeDL.setEnvironmentVariables(
-          String.format("Path=%s", new File(getDataFolder(), "bin").getAbsolutePath())
-        );
+          String.format(
+            "Path=%s",
+            new File(getDataFolder(), "bin").getAbsolutePath()
+          ));
 
         YoutubeDL.setExecutablePath("cmd.exe /c youtube-dl");
         final EntityMusicManager entityMusicManager = new EntityMusicManager(this);

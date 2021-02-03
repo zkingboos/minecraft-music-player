@@ -1,18 +1,19 @@
 package com.github.zkingboos.player.bukkit.entity;
 
-import com.sapher.youtubedl.DownloadProgressCallback;
-import com.sapher.youtubedl.mapper.VideoInfo;
+import com.github.zkingboos.player.bukkit.struct.PlaylistInfoStruct;
+import com.github.zkingboos.player.bukkit.struct.VideoInfoStruct;
 import lombok.NonNull;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public interface EntityMusic {
 
-    VideoInfoStruct requestSong(@NonNull String url);
+    PlaylistInfoStruct requestSong(@NonNull String url);
 
-    CompletableFuture<VideoInfoStruct> requestAsynchronousSong(@NonNull String url);
+    CompletableFuture<PlaylistInfoStruct> requestAsynchronousSong(@NonNull String url);
 
-    VideoInfoStruct requestSong(@NonNull String url, int quality);
+    PlaylistInfoStruct requestSong(@NonNull String url, int quality);
 
-    CompletableFuture<VideoInfoStruct> requestAsynchronousSong(@NonNull String url, int quality);
+    CompletableFuture<PlaylistInfoStruct> requestAsynchronousSong(@NonNull String url, int quality);
 }

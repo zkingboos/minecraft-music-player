@@ -2,6 +2,7 @@ package com.github.zkingboos.player.bukkit.command;
 
 import com.github.zkingboos.player.bukkit.entity.EntityMusic;
 import com.github.zkingboos.player.bukkit.manager.EntityMusicManager;
+import com.github.zkingboos.player.bukkit.struct.VideoInfoStruct;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -28,9 +29,11 @@ public class MusicPlayerCommand implements CommandExecutor {
 
         final EntityMusic entityMusic = musicManager.getEntityMusic(player);
         entityMusic
-          .requestAsynchronousSong(String.format("\"ytsearch: %s\"", String.join(" ", args)))
-          .thenAcceptAsync(videoInfo -> {
-              player.sendMessage("Downloaded " + videoInfo.getFulltitle() + " from " + videoInfo.getUploader());
+          .requestAsynchronousSong(String.join(" ", args))
+          .thenAcceptAsync(playlistInfoStruct -> {
+              for (VideoInfoStruct videoInfo : playlistInfoStruct) {
+                  player.sendMessage("[" + videoInfo.getId() + "] Downloaded " + videoInfo.getFulltitle() + " from " + videoInfo.getUploader());
+              }
           });
 
         //player.sendMessage(videoInfo.title);

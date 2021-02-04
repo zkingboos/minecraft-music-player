@@ -10,7 +10,6 @@ version = projectVersion
 sourceCompatibility = 1.8
 
 allprojects {
-    apply plugin: "maven"
     group = projectGroup
     version = projectVersion
 

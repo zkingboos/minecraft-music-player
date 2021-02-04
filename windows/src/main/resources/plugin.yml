@@ -1,0 +1,9 @@
+name: KMMusicPlayer
+main: com.github.zkingboos.player.WindowsMusicPlugin
+version: 1.0.0-SNAPSHOT
+author: zkingboos
+description: Allows to play [youtube music, soundcloud, twitch vod's and more] on spigot server
+website: https://github.com/zkingboos/minecraft-music-player
+commands:
+  music-player:
+    description: Play youtube music

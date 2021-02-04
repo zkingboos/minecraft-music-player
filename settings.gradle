@@ -1,2 +1,5 @@
 rootProject.name = 'minecraft-music-player'
+include 'windows'
+include 'linux'
+include 'bukkit'
 

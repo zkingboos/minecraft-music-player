@@ -28,7 +28,7 @@ public class BukkitEntityMusic implements EntityMusic {
 
     public BukkitEntityMusic(@NonNull File pluginFolder, @NonNull Player player) {
         this.queue = new ConcurrentLinkedQueue<>();
-        this.folder = new File(pluginFolder, String.format("/%s", player.getUniqueId().toString()));
+        this.folder = new File(pluginFolder, player.getUniqueId().toString());
         this.player = player;
         if (!folder.exists()) folder.mkdirs();
     }
@@ -36,8 +36,8 @@ public class BukkitEntityMusic implements EntityMusic {
     @Override
     public PlaylistInfoStruct requestSong(@NonNull String url, int quality) {
         try {
-            final boolean isUri = url.startsWith("https://");
-            if (!isUri) url = "\"ytsearch: " + url + "\"";
+            System.out.println("url = " + url);
+            if (!url.startsWith("https://")) url = String.format("ytsearch1:'%s'", url);
             final YoutubeDLRequest request = new YoutubeDLRequest(url, folder.getAbsolutePath())
               .setOption("id")
               .setOption("audio-quality", quality)
@@ -47,6 +47,7 @@ public class BukkitEntityMusic implements EntityMusic {
               .setOption("no-cache-dir")
               .setOption("max-download", 10)
               .setOption("yes-playlist");
+              //.setOption("default-search", "ytsearch1");
 
             return new PlaylistInfoStruct(YoutubeDL
               .getPlaylistInfo(request)

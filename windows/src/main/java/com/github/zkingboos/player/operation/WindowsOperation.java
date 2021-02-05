@@ -1,10 +1,7 @@
 package com.github.zkingboos.player.operation;
 
 import com.github.zkingboos.player.bukkit.operation.Operation;
-import lombok.NonNull;
 import org.apache.commons.lang.SystemUtils;
-
-import java.util.Map;
 
 public final class WindowsOperation implements Operation {
 
@@ -19,13 +16,13 @@ public final class WindowsOperation implements Operation {
     }
 
     @Override
-    public void setEnvironment(@NonNull Map<String, String> environment, @NonNull String path) {
-        environment.put("Path", path);
+    public String getEnvironmentVariable() {
+        return "Path=%s";
     }
 
     @Override
-    public String[] getExecutableCommand() {
-        return new String[]{"cmd.exe", "/c", "youtube-dl %s"};
+    public String getExecutableCommand() {
+        return "cmd.exe /c youtube-dl";
     }
 
     @Override

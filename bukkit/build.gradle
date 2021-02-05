@@ -1,5 +1,4 @@
 plugins {
-    id "com.github.johnrengelman.shadow" version "6.1.0"
     id 'java'
     id 'maven'
 }
@@ -8,11 +7,10 @@ sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
-    mavenLocal()
     maven { url 'https://jitpack.io' }
 }
 
 dependencies {
-    implementation 'com.github.zkingboos:youtubedl-java:1.5.7'
+    implementation 'com.github.zkingboos:youtubedl-java:1.5.6'
 }
 

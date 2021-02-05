@@ -1,8 +1,8 @@
 plugins {
     id "com.github.johnrengelman.shadow" version "6.1.0"
     id 'java'
-    id 'java-library'
     id 'maven'
+    id 'java-library'
 }
 
 sourceCompatibility = 1.8

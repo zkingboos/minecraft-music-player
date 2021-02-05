@@ -1,9 +1,10 @@
 package com.github.zkingboos.player.operation;
 
 import com.github.zkingboos.player.bukkit.operation.Operation;
+import lombok.NonNull;
 import org.apache.commons.lang.SystemUtils;
 
-import java.io.IOException;
+import java.util.Map;
 
 public final class LinuxOperation implements Operation {
 
@@ -18,13 +19,13 @@ public final class LinuxOperation implements Operation {
     }
 
     @Override
-    public String getEnvironmentVariable() {
-        return "PATH=%s:$PATH";
+    public void setEnvironment(@NonNull Map<String, String> environment, @NonNull String path) {
+        environment.put("PATH", environment.get("PATH") + ":" + path);
     }
 
     @Override
-    public String getExecutableCommand() {
-        return "bash -c youtube-dl";
+    public String[] getExecutableCommand() {
+        return new String[]{"youtube-dl", "%s"};
     }
 
     @Override

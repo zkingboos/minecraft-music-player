@@ -43,8 +43,8 @@ public abstract class MusicPlayerPlugin extends JavaPlugin {
 
     private void contextOperationOverride(@NonNull String path) {
         if (operation != null) {
-            YoutubeDL.setEnvironmentVariables(String.format(operation.getEnvironmentVariable(), path));
-            YoutubeDL.setExecutablePath(operation.getExecutableCommand());
+            YoutubeDL.setFunctionalEnvironment(environmentMap -> operation.setEnvironment(environmentMap, path));
+            YoutubeDL.setFunctionalExecutable(() -> String.join(" ", operation.getExecutableCommand()).trim());
         }
     }
 

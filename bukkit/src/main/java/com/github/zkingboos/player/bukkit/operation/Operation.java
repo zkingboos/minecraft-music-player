@@ -1,6 +1,9 @@
 package com.github.zkingboos.player.bukkit.operation;
 
+import lombok.NonNull;
+
 import java.io.Closeable;
+import java.util.Map;
 
 public interface Operation extends Closeable {
 
@@ -8,9 +11,9 @@ public interface Operation extends Closeable {
 
     String getArtifact();
 
-    String getEnvironmentVariable();
+    void setEnvironment(@NonNull Map<String, String> environment, @NonNull String path);
 
-    String getExecutableCommand();
+    String[] getExecutableCommand();
 
     boolean isSupported();
 

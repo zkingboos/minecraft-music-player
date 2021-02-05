@@ -36,8 +36,7 @@ public class BukkitEntityMusic implements EntityMusic {
     @Override
     public PlaylistInfoStruct requestSong(@NonNull String url, int quality) {
         try {
-            final boolean isUri = url.startsWith("https://");
-            if (!isUri) url = "\"ytsearch: " + url + "\"";
+            if (!url.startsWith("https://")) url = String.format("'%s'", url);
             final YoutubeDLRequest request = new YoutubeDLRequest(url, folder.getAbsolutePath())
               .setOption("id")
               .setOption("audio-quality", quality)
@@ -46,7 +45,8 @@ public class BukkitEntityMusic implements EntityMusic {
               .setOption("format", "bestaudio")
               .setOption("no-cache-dir")
               .setOption("max-download", 10)
-              .setOption("yes-playlist");
+              .setOption("yes-playlist")
+              .setOption("default-search", "ytsearch1");
 
             return new PlaylistInfoStruct(YoutubeDL
               .getPlaylistInfo(request)

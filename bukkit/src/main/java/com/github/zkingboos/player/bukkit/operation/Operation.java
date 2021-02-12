@@ -1,23 +1,25 @@
 package com.github.zkingboos.player.bukkit.operation;
 
+import lombok.Data;
 import lombok.NonNull;
 
 import java.io.Closeable;
+import java.nio.file.Path;
 import java.util.Map;
 
-public interface Operation extends Closeable {
+@Data
+public abstract class Operation implements Closeable {
 
-    String getOperation();
+    private final String operation;
+    private final String artifact;
 
-    String getArtifact();
+    public abstract void setEnvironment(@NonNull Map<String, String> environment, @NonNull String path);
 
-    void setEnvironment(@NonNull Map<String, String> environment, @NonNull String path);
+    public abstract String[] getExecutableCommand(@NonNull Path binaryPath);
 
-    String[] getExecutableCommand();
-
-    boolean isSupported();
+    public abstract boolean isSupported();
 
     @Override
-    default void close() {
+    public void close() {
     }
 }

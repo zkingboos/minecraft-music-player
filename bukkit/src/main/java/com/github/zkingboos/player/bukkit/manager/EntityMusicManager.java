@@ -20,6 +20,7 @@ public class EntityMusicManager {
     private static final ExecutorService POLL_SERVICE = new ForkJoinPool(4);
     private final Map<UUID, EntityMusic> cache;
     private final File musicFolder;
+
     public EntityMusicManager(@NonNull Plugin plugin) {
         this.cache = new LinkedHashMap<>();
         this.musicFolder = new File(plugin.getDataFolder(), "music");
@@ -29,12 +30,14 @@ public class EntityMusicManager {
         return POLL_SERVICE;
     }
 
-    public EntityMusic getEntityMusic(@NonNull Player player) {
-        EntityMusic entityMusic = cache.get(player.getUniqueId());
-        if (entityMusic != null) return entityMusic;
+    public static void closePollService() {
+        POLL_SERVICE.shutdown();
+    }
 
-        entityMusic = new BukkitEntityMusic(musicFolder, player);
-        cache.put(player.getUniqueId(), entityMusic);
-        return entityMusic;
+    public EntityMusic getEntityMusic(@NonNull Player player) {
+        return cache.computeIfAbsent(
+          player.getUniqueId(),
+          uuid -> new BukkitEntityMusic(musicFolder, player)
+        );
     }
 }

@@ -1,6 +1,6 @@
 package com.github.zkingboos.player.bukkit.struct;
 
-import com.sapher.youtubedl.mapper.VideoInfo;
+import com.github.zkingboos.youtubedl.entry.video.VideoInfo;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Delegate;

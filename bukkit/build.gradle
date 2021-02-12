@@ -13,6 +13,6 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.github.zkingboos:youtubedl-java:1.5.7'
+    implementation 'com.github.zkingboos:youtubedl-java:1.1.3'
 }
 

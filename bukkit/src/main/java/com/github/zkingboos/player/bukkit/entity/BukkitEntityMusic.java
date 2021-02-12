@@ -3,9 +3,9 @@ package com.github.zkingboos.player.bukkit.entity;
 import com.github.zkingboos.player.bukkit.manager.EntityMusicManager;
 import com.github.zkingboos.player.bukkit.struct.PlaylistInfoStruct;
 import com.github.zkingboos.player.bukkit.struct.VideoInfoStruct;
-import com.sapher.youtubedl.YoutubeDL;
-import com.sapher.youtubedl.YoutubeDLException;
-import com.sapher.youtubedl.YoutubeDLRequest;
+import com.github.zkingboos.youtubedl.YoutubeDL;
+import com.github.zkingboos.youtubedl.entry.playlist.PlaylistInfo;
+import com.github.zkingboos.youtubedl.exception.YoutubeDLException;
 import lombok.Data;
 import lombok.NonNull;
 import org.bukkit.entity.Player;
@@ -28,7 +28,7 @@ public class BukkitEntityMusic implements EntityMusic {
 
     public BukkitEntityMusic(@NonNull File pluginFolder, @NonNull Player player) {
         this.queue = new ConcurrentLinkedQueue<>();
-        this.folder = new File(pluginFolder, String.format("/%s", player.getUniqueId().toString()));
+        this.folder = new File(pluginFolder, player.getUniqueId().toString());
         this.player = player;
         if (!folder.exists()) folder.mkdirs();
     }
@@ -36,26 +36,24 @@ public class BukkitEntityMusic implements EntityMusic {
     @Override
     public PlaylistInfoStruct requestSong(@NonNull String url, int quality) {
         try {
-            if (!url.startsWith("https://")) url = String.format("'%s'", url);
-            final YoutubeDLRequest request = new YoutubeDLRequest(url, folder.getAbsolutePath())
-              .setOption("id")
-              .setOption("audio-quality", quality)
-              .setOption("extract-audio")
-              .setOption("audio-format", "vorbis")
-              .setOption("format", "bestaudio")
-              .setOption("no-cache-dir")
-              .setOption("max-download", 10)
-              .setOption("yes-playlist")
-              .setOption("default-search", "ytsearch1");
+            if (!url.startsWith("https://")) url = "ytsearch1:".concat(url);
+            final PlaylistInfo playlistInfo = YoutubeDL
+              .from(url, folder.getAbsolutePath())
+              .id()
+              .audioQuality(quality)
+              .extractAudio()
+              .audioFormat("vorbis")
+              .format("bestaudio")
+              .noCacheDir()
+              .maxDownload(10)
+              .get();
 
-            return new PlaylistInfoStruct(YoutubeDL
-              .getPlaylistInfo(request)
-              .getVideoInfoList()
-              .parallelStream()
-              .map(videoInfo -> {
-                  final File file = new File(folder, videoInfo.getId().concat(DEFAULT_FILE_EXTENSION));
-                  return new VideoInfoStruct(file, videoInfo);
-              }).collect(Collectors.toList())
+            return new PlaylistInfoStruct(
+              playlistInfo
+                .getVideoInfoList()
+                .parallelStream()
+                .map(videoInfo -> new VideoInfoStruct(new File(folder, videoInfo.getId().concat(DEFAULT_FILE_EXTENSION)), videoInfo))
+                .collect(Collectors.toList())
             );
         } catch (YoutubeDLException exception) {
             exception.printStackTrace();
@@ -65,9 +63,8 @@ public class BukkitEntityMusic implements EntityMusic {
 
     @Override
     public CompletableFuture<PlaylistInfoStruct> requestAsynchronousSong(@NonNull String url, int quality) {
-        return CompletableFuture.supplyAsync(() -> {
-            return requestSong(url, quality);
-        }, EntityMusicManager.getPollService());
+        return CompletableFuture
+          .supplyAsync(() -> requestSong(url, quality), EntityMusicManager.getPollService());
     }
 
     @Override

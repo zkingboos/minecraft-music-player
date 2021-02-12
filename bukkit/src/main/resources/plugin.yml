@@ -1,5 +1,5 @@
 name: KMMusicPlayer
-main: com.github.zkingboos.player.LinuxMusicPlugin
+main: com.github.zkingboos.player.bukkit.MusicPlayerPlugin
 version: 1.0.0-SNAPSHOT
 author: zkingboos
 description: Allows to play [youtube music, soundcloud, twitch vod's and more] on spigot server

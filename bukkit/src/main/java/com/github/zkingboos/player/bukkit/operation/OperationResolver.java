@@ -2,13 +2,13 @@ package com.github.zkingboos.player.bukkit.operation;
 
 import com.github.zkingboos.player.bukkit.util.BinaryArtifact;
 import com.github.zkingboos.youtubedl.YoutubeDL;
-import lombok.Getter;
 import lombok.NonNull;
 import lombok.experimental.UtilityClass;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 
 @UtilityClass
 public final class OperationResolver {
@@ -29,11 +29,12 @@ public final class OperationResolver {
 
     public void prepareBinaryFolder(@NonNull File dataFolder) throws IOException {
         final File file = new File(dataFolder, "bin");
+        final Path path = file.toPath();
         if (!file.exists()) {
-            BinaryArtifact.download(context, Files.createDirectory(file.toPath()));
+            BinaryArtifact.download(context, Files.createDirectory(path));
         }
 
-        YoutubeDL.setExecutablePath(context.getExecutableCommand(file.toPath()));
+        YoutubeDL.setExecutablePath(context.getExecutableCommand(path));
         YoutubeDL.setEnvironmentConsumer(environmentMap ->
           context.setEnvironment(environmentMap, file.getAbsolutePath())
         );

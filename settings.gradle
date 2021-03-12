@@ -1,2 +1,4 @@
 rootProject.name = 'minecraft-music-player'
 include 'bukkit'
+include 'resourcepack'
+

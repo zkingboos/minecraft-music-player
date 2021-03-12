@@ -2,29 +2,24 @@ plugins {
     id 'java'
 }
 
-def projectGroup = 'com.github.zkingboos.player'
-def projectVersion = '1.0.0-SNAPSHOT'
-
-group = projectGroup
-version = projectVersion
-sourceCompatibility = 1.8
+sourceCompatibility = JavaVersion.VERSION_1_8
 
 allprojects {
-    group = projectGroup
-    version = projectVersion
+    group = 'com.github.zkingboos.player'
+    version = '1.0.0-SNAPSHOT'
+    sourceCompatibility = JavaVersion.VERSION_1_8
 
     afterEvaluate {
         repositories {
             mavenCentral()
-            mavenLocal()
             maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
             maven { url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
         }
 
         dependencies {
-            compileOnly "org.spigotmc:spigot-api:1.12.2-R0.1-SNAPSHOT"
-            compileOnly "org.projectlombok:lombok:1.18.16"
-            annotationProcessor "org.projectlombok:lombok:1.18.16"
+            compileOnly 'org.projectlombok:lombok:1.18.16'
+            compileOnly 'org.spigotmc:spigot-api:1.12.2-R0.1-SNAPSHOT'
+            annotationProcessor 'org.projectlombok:lombok:1.18.16'
         }
     }
 

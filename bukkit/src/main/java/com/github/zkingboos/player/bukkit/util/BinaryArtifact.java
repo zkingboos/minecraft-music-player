@@ -52,6 +52,7 @@ public class BinaryArtifact {
                         bufferedOutputStream.write(buffer, 0, length);
                     }
                 }
+                zipIn.closeEntry();
             }
         }
 
